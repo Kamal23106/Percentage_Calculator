@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+  <meta charset="UTF-8">
+  <title>Student Percentage Calculator</title>
+  <script>
+    function showSubjects() {
+      const classValue = document.getElementById("class").value;
+      const subjectsDiv = document.getElementById("subjects");
+      subjectsDiv.innerHTML = ""; // Clear previous input fields
+
+      const subjects = classValue === "12"
+        ? ["Physics", "Chemistry", "Maths", "English", "Computer"]
+        : ["Hindi", "English", "Maths", "Science", "Social Science", "Sanskrit"];
+
+      subjects.forEach(sub => {
+        subjectsDiv.innerHTML += `
+          <label>${sub} Marks: </label>
+          <input type="number" name="marks" min="0" max="100" required><br>
+        `;
+      });
+    }
+
+    function calculatePercentage() {
+      const marks = document.getElementsByName("marks");
+      let total = 0;
+      for (let i = 0; i < marks.length; i++) {
+        total += parseFloat(marks[i].value || 0);
+      }
+      const percentage = (total / marks.length).toFixed(2);
+      document.getElementById("result").innerText = "Percentage: " + percentage + "%";
+    }
+  </script>
+</head>
+<body>
+  <h2>Student Percentage Calculator</h2>
+  <label>Select Class:</label>
+  <select id="class" onchange="showSubjects()">
+    <option value="">--Select--</option>
+    <option value="10">Class 10</option>
+    <option value="12">Class 12</option>
+  </select>
+
+  <div id="subjects" style="margin-top:20px;"></div>
+
+  <button onclick="calculatePercentage()">Calculate Percentage</button>
+  <h3 id="result"></h3>
+</body>
+</html>
